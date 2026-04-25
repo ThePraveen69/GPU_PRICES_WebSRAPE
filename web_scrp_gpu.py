@@ -1,11 +1,16 @@
 from bs4 import BeautifulSoup
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+import time 
+path = r"C:\Users\ADMIN\.wdm\drivers\chromedriver\win64\147.0.7727.117\chromedriver-win32\chromedriver.exe"
+service = Service(path)
+driver =webdriver.Chrome(service=service) 
 
-search = input("enter the product you want ? ")
-pg_no = int(input("enter the page number : "))
 
-url = f"https://www.newegg.com/p/pl?N=4131&d={search}&page={pg_no})"
-page = requests.get(url).text
-doc = BeautifulSoup(page, "html.parser")
+page_url = f"https://www.newegg.com/p/pl?N=4131&d=3080&page=1)"
+driver.get(page_url)
+time.sleep(20)
+html = driver.page_source
+doc = BeautifulSoup(html , "html.parser")
 
 print(doc.prettify())
